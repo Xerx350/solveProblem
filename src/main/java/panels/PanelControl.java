@@ -214,23 +214,28 @@ public class PanelControl extends GridPanel {
                     button.checkOver(lastWindowCS.getRelativePos(new Vector2i(ee)));
             }
             // событие нажатия мыши
-        } else if (e instanceof EventMouseButton) {
+        } else if (e instanceof EventMouseButton ee) {
             if (!lastInside)
                 return;
 
             Vector2i relPos = lastWindowCS.getRelativePos(lastMove);
 
-            // пробуем кликнуть по всем кнопкам
-            for (Button button : buttons) {
-                button.click(relPos);
-            }
+            // если событие - нажатие мыши
+            if (ee.isPressed()) {
 
-            // перебираем поля ввода
-            for (Input input : inputs) {
-                // если клик внутри этого поля
-                if (input.contains(relPos)) {
-                    // переводим фокус на это поле ввода
-                    input.setFocus();
+                // пробуем кликнуть по всем кнопкам
+
+                for (Button button : buttons) {
+                    button.click(relPos);
+                }
+
+                // перебираем поля ввода
+                for (Input input : inputs) {
+                    // если клик внутри этого поля
+                    if (input.contains(relPos)) {
+                        // переводим фокус на это поле ввода
+                        input.setFocus();
+                    }
                 }
             }
             // перерисовываем окно
